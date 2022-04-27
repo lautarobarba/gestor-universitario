@@ -20,6 +20,7 @@ public class GUI extends JFrame {
 
     // Main
     public static void main(String[] args) {
+        System.out.println("Ejecutando GUI...");
         JFrame frame = new GUI("Multiple Windows");
     }
 }
