@@ -1,7 +1,13 @@
 package models;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import config.Database;
+
+import java.sql.SQLException;
+import java.util.List;
 
 @DatabaseTable(tableName = "users")
 public class User {
@@ -69,5 +75,19 @@ public class User {
     }
     public void setRole(String role) {
         this.role = role;
+    }
+
+    // Métodos
+    public static User iniciarSesion(String email, String password){
+        try{
+            Database database = Database.getInstance();
+            Dao<User, String> userDao = DaoManager.createDao(database.connection(), User.class);
+            // List<User> users = userDao.queryBuilder().where().eq("email", email).query();
+            User user = userDao.queryBuilder().where().eq("email", email).and().eq("password", password).queryForFirst();
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
