@@ -1,4 +1,4 @@
-package models;
+package clases;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -7,7 +7,6 @@ import com.j256.ormlite.table.DatabaseTable;
 import config.Database;
 
 import java.sql.SQLException;
-import java.util.List;
 
 @DatabaseTable(tableName = "users")
 public class User {

@@ -3,7 +3,7 @@ package config;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import models.User;
+import clases.User;
 
 import java.sql.SQLException;
 

@@ -3,11 +3,9 @@ package controllers;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import config.Database;
-import models.User;
+import clases.User;
 
-import javax.xml.crypto.Data;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public class UserController{
 

@@ -1,9 +1,8 @@
-package views;
+package aplicacion;
 
 import java.util.Scanner;
 import config.Database;
-import controllers.UserController;
-import models.User;
+import clases.User;
 import java.sql.SQLException;
 
 public class CLI {
