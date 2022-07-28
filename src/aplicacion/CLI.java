@@ -33,7 +33,7 @@ public class CLI {
                 System.out.println();
                 System.out.println("0 - Salir.");
                 System.out.print(">> ");
-            } else if (user.getRole().equals("ADMINISTRADOR")){
+            } else if (user.getRole().equals(User.ROLE_ADMINISTRADOR)){
                 // Menu de usuario ADMINISTRADOR
                 System.out.println("== Ejecutando CLI ["+ user.getRole() + ": " +user.getName() +"] ==");
                 System.out.println("==  MENU  ==");
@@ -41,7 +41,7 @@ public class CLI {
                 System.out.println();
                 System.out.println("0 - Salir.");
                 System.out.print(">> ");
-            } else if (user.getRole().equals("PROFESOR")){
+            } else if (user.getRole().equals(User.ROLE_PROFESOR)){
                 // Menu de usuario PROFESOR
                 System.out.println("== Ejecutando CLI ["+ user.getRole() + ": " +user.getName() +"] ==");
                 System.out.println("==  MENU  ==");
@@ -49,7 +49,7 @@ public class CLI {
                 System.out.println();
                 System.out.println("0 - Salir.");
                 System.out.print(">> ");
-            } else if (user.getRole().equals("ALUMNO")){
+            } else if (user.getRole().equals(User.ROLE_ALUMNO)){
                 // Menu de usuario ALUMNO
                 System.out.println("== Ejecutando CLI ["+ user.getRole() + ": " +user.getName() +"] ==");
                 System.out.println("==  MENU  ==");
@@ -88,7 +88,7 @@ public class CLI {
                     case 2: // 2 -
                         break;
                 }
-            } else if (user.getRole().equals("ADMINISTRADOR")){
+            } else if (user.getRole().equals(User.ROLE_ADMINISTRADOR)){
                 switch (seleccion) {
                     case 1: // 1 - Cerrar sesión.
                         System.out.println("= Cerrar sesión =");
@@ -98,7 +98,7 @@ public class CLI {
                     case 2: // 2 -
                         break;
                 }
-            } else if (user.getRole().equals("PROFESOR")){
+            } else if (user.getRole().equals(User.ROLE_PROFESOR)){
                 switch (seleccion) {
                     case 1: // 1 - Cerrar sesión.
                         System.out.println("= Cerrar sesión =");
@@ -108,7 +108,7 @@ public class CLI {
                     case 2: // 2 -
                         break;
                 }
-            } else if (user.getRole().equals("ALUMNO")) {
+            } else if (user.getRole().equals(User.ROLE_ALUMNO)){
                 switch (seleccion) {
                     case 1: // 1 - Cerrar sesión.
                         System.out.println("= Cerrar sesión =");
