@@ -3,7 +3,7 @@ package config;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import clases.User;
+import clases.Usuario;
 
 import java.sql.SQLException;
 
@@ -58,7 +58,7 @@ public class Database {
         System.out.println("Controlando tablas existentes...");
 
         try {
-            TableUtils.createTableIfNotExists(connection, User.class);
+            TableUtils.createTableIfNotExists(connection, Usuario.class);
         } catch (SQLException e) {
             System.out.println("Error al crear tabla users...");
             e.printStackTrace();

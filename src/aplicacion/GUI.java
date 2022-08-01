@@ -1,6 +1,6 @@
 package aplicacion;
 
-import clases.User;
+import clases.Usuario;
 import config.Database;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class GUI extends JFrame {
     // Usuario logueado
-    User user = null;
+    Usuario usuario = null;
 
     private JPanel mainLayout;
     private JLabel appTitle;
@@ -51,8 +51,8 @@ public class GUI extends JFrame {
                 System.out.println(email);
                 System.out.println(password);
                 if(!email.isEmpty() && !password.isEmpty()){
-                    user = User.iniciarSesion(email, password);
-                    if (user == null) {
+                    usuario = Usuario.iniciarSesion(email, password);
+                    if (usuario == null) {
                         // Si el usuario no pudo iniciar sesión
                         errorLabel.setText("Error al iniciar sesión");
                     } else {
@@ -61,18 +61,18 @@ public class GUI extends JFrame {
 
                         // Cambio de panel(ventana)
                         loginScreen.setVisible(false);
-                        switch (user.getRole()) {
-                            case User.ROLE_ADMINISTRADOR:
+                        switch (usuario.getRol()) {
+                            case Usuario.ROL_ADMINISTRADOR:
                                 adminDashboard.setVisible(true);
                                 break;
-                            case User.ROLE_PROFESOR:
+                            case Usuario.ROL_PROFESOR:
                                 teacherDashboard.setVisible(true);
                                 break;
-                            case User.ROLE_ALUMNO:
+                            case Usuario.ROL_ALUMNO:
                                 studentDashboard.setVisible(true);
                                 break;
                         }
-                        userLogged.setText(user.getRole() + ": " + user.getName());
+                        userLogged.setText(usuario.getRol() + ": " + usuario.getNombre());
                     }
                 }
             }
@@ -80,7 +80,7 @@ public class GUI extends JFrame {
         SALIRButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                user = null;
+                usuario = null;
                 userLogged.setText("");
                 SALIRButton.setVisible(false);
                 loginScreen.setVisible(true);
