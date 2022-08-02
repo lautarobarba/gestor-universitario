@@ -3,6 +3,7 @@ package aplicacion;
 import java.util.Scanner;
 import config.Database;
 import clases.Usuario;
+
 import java.sql.SQLException;
 
 public class CLI {
@@ -20,9 +21,11 @@ public class CLI {
         int seleccion = 1;
         Scanner input = new Scanner(System.in);
 
-        // Campos
+        // Campos para registrar un usuario
         String correo = null;
         String contrasena = null;
+        String nombre = null;
+        String rol = null;
 
         while(seleccion != 0){
             if(usuario == null){
@@ -38,6 +41,7 @@ public class CLI {
                 System.out.println("== Ejecutando CLI ["+ usuario.getRol() + ": " + usuario.getNombre() +"] ==");
                 System.out.println("==  MENU  ==");
                 System.out.println("1 - Cerrar sesión.");
+                System.out.println("2 - Registrar usuario.");
                 System.out.println();
                 System.out.println("0 - Salir.");
                 System.out.print(">> ");
@@ -95,7 +99,17 @@ public class CLI {
                         System.out.println("Cerrando sesión...");
                         usuario = null;
                         break;
-                    case 2: // 2 -
+                    case 2: // 2 - Registrar usuario.
+                        System.out.println("= Registrar usuario =");
+                        System.out.print("Rol: ");
+                        rol =  input.nextLine();
+                        System.out.print("Correo: ");
+                        correo =  input.nextLine();
+                        System.out.print("Contraseña: ");
+                        contrasena =  input.nextLine();
+                        System.out.print("Nombre: ");
+                        nombre =  input.nextLine();
+                        usuario = Usuario.crearUsuario(correo, contrasena, nombre, rol);
                         break;
                 }
             } else if (usuario.getRol().equals(Usuario.ROL_PROFESOR)){
@@ -121,7 +135,7 @@ public class CLI {
             }
         }
 
-        //UserController.createUser("lau_mb94@hotmail.com", "HoLa","Lautaro Barba", User.ROL_ADMINISTRADOR);
+        // Usuario.crearUsuario("administrador@gmail.com", "administrador", "Administrador Prueba", Usuario.ROL_ADMINISTRADOR);
         database.closeConnection();
     }
 }

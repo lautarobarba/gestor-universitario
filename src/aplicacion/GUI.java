@@ -26,6 +26,15 @@ public class GUI extends JFrame {
     private JLabel userLogged;
     private JPanel userStatusBar;
     private JButton SALIRButton;
+    private JButton registrarNuevoUsuarioButton;
+    private JButton cargarNuevaCarreraPlanButton;
+    private JButton cargarNuevaMateriaButton;
+    private JPanel registrarUsuarioPanel;
+    private JComboBox<String> rolField;
+    private JTextField nombreField;
+    private JTextField correoField;
+    private JPasswordField contrasenaField;
+    private JButton REGISTRARButton;
 
     public GUI(String title) {
         // SuperClass Constructor
@@ -42,6 +51,7 @@ public class GUI extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+
         ingresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,6 +94,35 @@ public class GUI extends JFrame {
                 userLogged.setText("");
                 SALIRButton.setVisible(false);
                 loginScreen.setVisible(true);
+            }
+        });
+        registrarNuevoUsuarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminDashboard.setVisible(false);
+                registrarUsuarioPanel.setVisible(true);
+            }
+        });
+        REGISTRARButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String rol = rolField.getSelectedItem().toString();
+                String correo = correoField.getText();
+                String nombre = nombreField.getText();
+                String contrasena = String.valueOf(contrasenaField.getPassword());
+                if(
+                    rol.isEmpty() || rol.isBlank() ||
+                    correo.isEmpty() || correo.isBlank() ||
+                    nombre.isEmpty() || nombre.isBlank() ||
+                    contrasena.isEmpty() || contrasena.isBlank()
+                ){
+                    errorLabel.setText("Falta ingresar alguno de los parámetros solicitados");
+                } else {
+                    errorLabel.setText("");
+                    Usuario.crearUsuario(correo, contrasena, nombre, rol);
+                    registrarUsuarioPanel.setVisible(false);
+                    adminDashboard.setVisible(true);
+                }
             }
         });
     }

@@ -77,12 +77,25 @@ public class Usuario {
     }
 
     // Métodos
+    public static Usuario crearUsuario(String correo, String contrasena, String nombre, String rol){
+        try{
+            Database database = Database.getInstance();
+            Dao<Usuario, String> usuarioDao = DaoManager.createDao(database.connection(), Usuario.class);
+            Usuario usuario = new Usuario(correo, contrasena, nombre, rol);
+            usuarioDao.create(usuario);
+            return usuario;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static Usuario iniciarSesion(String correo, String contrasena){
         try{
             Database database = Database.getInstance();
-            Dao<Usuario, String> userDao = DaoManager.createDao(database.connection(), Usuario.class);
+            Dao<Usuario, String> usuarioDao = DaoManager.createDao(database.connection(), Usuario.class);
             // List<User> users = userDao.queryBuilder().where().eq("correo", correo).query();
-            Usuario usuario = userDao.queryBuilder().where().eq("correo", correo).and().eq("contrasena", contrasena).queryForFirst();
+            Usuario usuario = usuarioDao.queryBuilder().where().eq("correo", correo).and().eq("contrasena", contrasena).queryForFirst();
             return usuario;
         } catch (SQLException e) {
             e.printStackTrace();
