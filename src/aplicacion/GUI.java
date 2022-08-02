@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GUI extends JFrame {
     // Usuario logueado
@@ -35,6 +36,10 @@ public class GUI extends JFrame {
     private JTextField correoField;
     private JPasswordField contrasenaField;
     private JButton REGISTRARButton;
+    private JButton listarUsuariosButton;
+    private JPanel listarUsuariosPanel;
+    private JList listaUsuarios;
+    private JButton volverButton;
 
     public GUI(String title) {
         // SuperClass Constructor
@@ -120,9 +125,34 @@ public class GUI extends JFrame {
                 } else {
                     errorLabel.setText("");
                     Usuario.crearUsuario(correo, contrasena, nombre, rol);
+                    correoField.setText("");
+                    nombreField.setText("");
+                    contrasenaField.setText("");
                     registrarUsuarioPanel.setVisible(false);
                     adminDashboard.setVisible(true);
                 }
+            }
+        });
+        listarUsuariosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminDashboard.setVisible(false);
+                List<Usuario> usuarios = Usuario.buscarTodos();
+                DefaultListModel<String> listUsuariosModel = new DefaultListModel<>();
+                if(usuarios != null){
+                    usuarios.forEach((Usuario usuarioAux) -> {
+                        listUsuariosModel.addElement(usuarioAux.getRol() + ": " + usuarioAux.getNombre());
+                    });
+                    listaUsuarios.setModel(listUsuariosModel);
+                }
+                listarUsuariosPanel.setVisible(true);
+            }
+        });
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listarUsuariosPanel.setVisible(false);
+                adminDashboard.setVisible(true);
             }
         });
     }

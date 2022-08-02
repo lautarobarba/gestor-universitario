@@ -7,6 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import config.Database;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @DatabaseTable(tableName = "usuarios")
 public class Usuario {
@@ -94,9 +95,20 @@ public class Usuario {
         try{
             Database database = Database.getInstance();
             Dao<Usuario, String> usuarioDao = DaoManager.createDao(database.connection(), Usuario.class);
-            // List<User> users = userDao.queryBuilder().where().eq("correo", correo).query();
             Usuario usuario = usuarioDao.queryBuilder().where().eq("correo", correo).and().eq("contrasena", contrasena).queryForFirst();
             return usuario;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<Usuario> buscarTodos(){
+        try{
+            Database database = Database.getInstance();
+            Dao<Usuario, String> usuarioDao = DaoManager.createDao(database.connection(), Usuario.class);
+            List<Usuario> usuarios = usuarioDao.queryBuilder().query();
+            return usuarios;
         } catch (SQLException e) {
             e.printStackTrace();
         }

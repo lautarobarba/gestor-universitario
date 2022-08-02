@@ -1,5 +1,6 @@
 package aplicacion;
 
+import java.util.List;
 import java.util.Scanner;
 import config.Database;
 import clases.Usuario;
@@ -42,6 +43,7 @@ public class CLI {
                 System.out.println("==  MENU  ==");
                 System.out.println("1 - Cerrar sesión.");
                 System.out.println("2 - Registrar usuario.");
+                System.out.println("3 - Listar usuarios.");
                 System.out.println();
                 System.out.println("0 - Salir.");
                 System.out.print(">> ");
@@ -110,6 +112,15 @@ public class CLI {
                         System.out.print("Nombre: ");
                         nombre =  input.nextLine();
                         usuario = Usuario.crearUsuario(correo, contrasena, nombre, rol);
+                        break;
+                    case 3: // 3 - Listar usuarios.
+                        System.out.println("= Lista de usuarios =");
+                        List<Usuario> usuarios = Usuario.buscarTodos();
+                        if(usuarios != null ){
+                            usuarios.forEach((Usuario usuarioAux) -> {
+                                System.out.println(usuarioAux.toString());
+                            });
+                        }
                         break;
                 }
             } else if (usuario.getRol().equals(Usuario.ROL_PROFESOR)){
