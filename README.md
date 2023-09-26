@@ -15,6 +15,15 @@ $ # Controlar version
 $ java -version
 ```
 
+### Configurar JAVA_HOME.
+
+En el archivo **~/.bashrc** agregar las siguientes lineas:
+
+```text
+# JAVAHOME
+export JAVA_HOME=$(which java)
+```
+
 ## IDE intellij community
 
 ```bash
