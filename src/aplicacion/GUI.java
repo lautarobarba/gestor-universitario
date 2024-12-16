@@ -27,19 +27,23 @@ public class GUI extends JFrame {
     private JLabel userLogged;
     private JPanel userStatusBar;
     private JButton SALIRButton;
-    private JButton registrarNuevoUsuarioButton;
-    private JButton cargarNuevaCarreraPlanButton;
-    private JButton cargarNuevaMateriaButton;
-    private JPanel registrarUsuarioPanel;
-    private JComboBox<String> rolField;
-    private JTextField nombreField;
-    private JTextField correoField;
-    private JPasswordField contrasenaField;
-    private JButton REGISTRARButton;
+    private JButton crearUsuarioButton;
+    private JButton crearCarreraButton;
+    private JButton listarCarreraButton;
+    private JPanel crearUsuarioPanel;
+    private JComboBox<String> rolNuevoUsuarioField;
+    private JTextField nombreNuevoUsuarioField;
+    private JTextField correoNuevoUsuarioField;
+    private JPasswordField contrasenaNuevoUsuarioField;
+    private JButton crearUsuarioConfirmarButton;
     private JButton listarUsuariosButton;
     private JPanel listarUsuariosPanel;
     private JList listaUsuarios;
     private JButton volverButton;
+    private JLabel carrerasTitle;
+    private JLabel usuariosTitle;
+    private JButton crearUsuarioCancelarButton;
+    private JLabel successLabel;
 
     public GUI(String title) {
         // SuperClass Constructor
@@ -101,35 +105,39 @@ public class GUI extends JFrame {
                 loginScreen.setVisible(true);
             }
         });
-        registrarNuevoUsuarioButton.addActionListener(new ActionListener() {
+
+        // Admin Dashboard - Usuarios
+        crearUsuarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adminDashboard.setVisible(false);
-                registrarUsuarioPanel.setVisible(true);
+                crearUsuarioPanel.setVisible(true);
             }
         });
-        REGISTRARButton.addActionListener(new ActionListener() {
+        crearUsuarioConfirmarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String rol = rolField.getSelectedItem().toString();
-                String correo = correoField.getText();
-                String nombre = nombreField.getText();
-                String contrasena = String.valueOf(contrasenaField.getPassword());
+                String rol = rolNuevoUsuarioField.getSelectedItem().toString();
+                String correo = correoNuevoUsuarioField.getText();
+                String nombre = nombreNuevoUsuarioField.getText();
+                String contrasena = String.valueOf(contrasenaNuevoUsuarioField.getPassword());
                 if(
                     rol.isEmpty() || rol.isBlank() ||
                     correo.isEmpty() || correo.isBlank() ||
                     nombre.isEmpty() || nombre.isBlank() ||
                     contrasena.isEmpty() || contrasena.isBlank()
                 ){
+                    successLabel.setText("");
                     errorLabel.setText("Falta ingresar alguno de los parámetros solicitados");
                 } else {
-                    errorLabel.setText("");
                     Usuario.crearUsuario(correo, contrasena, nombre, rol);
-                    correoField.setText("");
-                    nombreField.setText("");
-                    contrasenaField.setText("");
-                    registrarUsuarioPanel.setVisible(false);
+                    correoNuevoUsuarioField.setText("");
+                    nombreNuevoUsuarioField.setText("");
+                    contrasenaNuevoUsuarioField.setText("");
+                    crearUsuarioPanel.setVisible(false);
                     adminDashboard.setVisible(true);
+                    successLabel.setText("Usuario registrado correctamente");
+                    errorLabel.setText("");
                 }
             }
         });
@@ -148,6 +156,13 @@ public class GUI extends JFrame {
                 listarUsuariosPanel.setVisible(true);
             }
         });
+
+        // Admin Dashboard - Carreras
+
+
+
+
+
         volverButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
