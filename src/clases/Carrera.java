@@ -32,6 +32,7 @@ public class Carrera {
         return nombre;
     }
 
+
     // Getters
     public int getId() {
         return id;
@@ -46,6 +47,32 @@ public class Carrera {
         this.nombre = nombre;
     }
 
+
+    // Métodos
+    public static Carrera crearCarrera(String nombre){
+        try{
+            Database database = Database.getInstance();
+            Dao<Carrera, String> carreraDao = DaoManager.createDao(database.connection(), Carrera.class);
+            Carrera carrera = new Carrera(nombre);
+            carreraDao.create(carrera);
+            return carrera;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean eliminarCarrera(Integer id){
+        try{
+            Database database = Database.getInstance();
+            Dao<Carrera, String> carreraDao = DaoManager.createDao(database.connection(), Carrera.class);
+            carreraDao.deleteById(id.toString());
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static List<Carrera> buscarTodos(){
         try{

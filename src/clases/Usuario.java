@@ -46,6 +46,7 @@ public class Usuario {
         return nombre;
     }
 
+
     // Getters
     public int getId() {
         return id;
@@ -63,6 +64,7 @@ public class Usuario {
         return rol;
     }
 
+
     // Setters
     public void setCorreo(String correo) {
         this.correo = correo;
@@ -76,6 +78,7 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
 
     // Métodos
     public static Usuario crearUsuario(String correo, String contrasena, String nombre, String rol){
