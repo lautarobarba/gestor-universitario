@@ -4,6 +4,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import clases.Usuario;
+import clases.Carrera;
 
 import java.sql.SQLException;
 
@@ -60,11 +61,18 @@ public class Database {
         try {
             TableUtils.createTableIfNotExists(connection, Usuario.class);
         } catch (SQLException e) {
-            System.out.println("Error al crear tabla users...");
+            System.out.println("Error al crear tabla usuarios...");
             e.printStackTrace();
             return false;
         }
 
+        try {
+            TableUtils.createTableIfNotExists(connection, Carrera.class);
+        } catch (SQLException e) {
+            System.out.println("Error al crear tabla carreras...");
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 }
