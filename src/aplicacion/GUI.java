@@ -1,5 +1,6 @@
 package aplicacion;
 
+import clases.Carrera;
 import clases.Usuario;
 import config.Database;
 
@@ -39,11 +40,16 @@ public class GUI extends JFrame {
     private JButton listarUsuariosButton;
     private JPanel listarUsuariosPanel;
     private JList listaUsuarios;
-    private JButton volverButton;
+    private JButton volverListaUsuariosButton;
     private JLabel carrerasTitle;
     private JLabel usuariosTitle;
     private JButton crearUsuarioCancelarButton;
     private JLabel successLabel;
+    private JPanel crearCarreraPanel;
+    private JTextField nombreNuevaCarreraField;
+    private JLabel nombreNuevaCarreraLabel;
+    private JButton crearCarreraCancelarButton;
+    private JButton crearCarreraConfirmarButton;
 
     public GUI(String title) {
         // SuperClass Constructor
@@ -141,6 +147,14 @@ public class GUI extends JFrame {
                 }
             }
         });
+        crearUsuarioCancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                crearUsuarioPanel.setVisible(false);
+                adminDashboard.setVisible(true);
+            }
+        });
+
         listarUsuariosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,28 +162,57 @@ public class GUI extends JFrame {
                 List<Usuario> usuarios = Usuario.buscarTodos();
                 DefaultListModel<String> listUsuariosModel = new DefaultListModel<>();
                 if(usuarios != null){
-                    usuarios.forEach((Usuario usuarioAux) -> {
-                        listUsuariosModel.addElement(usuarioAux.getRol() + ": " + usuarioAux.getNombre());
-                    });
+                    for(int i=0; i<usuarios.toArray().length; i++){
+                        listUsuariosModel.addElement((i+1) + ". " + usuarios.get(i).getNombre() + "[" + usuarios.get(i).getRol() + "] (" + usuarios.get(i).getCorreo() + ")");
+                    }
                     listaUsuarios.setModel(listUsuariosModel);
                 }
                 listarUsuariosPanel.setVisible(true);
             }
         });
-
-        // Admin Dashboard - Carreras
-
-
-
-
-
-        volverButton.addActionListener(new ActionListener() {
+        volverListaUsuariosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 listarUsuariosPanel.setVisible(false);
                 adminDashboard.setVisible(true);
             }
         });
+
+        // Admin Dashboard - Carreras
+        crearCarreraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminDashboard.setVisible(false);
+                crearCarreraPanel.setVisible(true);
+            }
+        });
+        crearCarreraConfirmarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombre = nombreNuevaCarreraField.getText();
+                if( nombre.isEmpty() || nombre.isBlank() ){
+                    successLabel.setText("");
+                    errorLabel.setText("Falta ingresar alguno de los parámetros solicitados");
+                } else {
+                    Carrera.crearCarrera(nombre);
+                    nombreNuevaCarreraField.setText("");
+                    crearCarreraPanel.setVisible(false);
+                    adminDashboard.setVisible(true);
+                    successLabel.setText("Carrera creada correctamente");
+                    errorLabel.setText("");
+                }
+            }
+        });
+        crearCarreraCancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                crearCarreraPanel.setVisible(false);
+                adminDashboard.setVisible(true);
+            }
+        });
+
+
+
     }
 
     // Main

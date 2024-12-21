@@ -26,6 +26,8 @@ public class Usuario {
     @DatabaseField()
     private String nombre;
     @DatabaseField()
+    private String documento;
+    @DatabaseField()
     private String rol;
 
     // Constructor
@@ -33,35 +35,39 @@ public class Usuario {
         // ORMLite needs a no-arg constructor
     }
 
-    public Usuario(String correo, String contrasena, String nombre, String rol) {
+    public Usuario(String correo, String contrasena, String nombre, String documento, String rol) {
         super();
         this.correo = correo;
         this.contrasena = contrasena;
         this.nombre = nombre;
+        this.documento = documento;
         this.rol = rol;
     }
 
     @Override
     public String toString(){
-        return nombre;
+        return this.nombre + " (" + this.documento + ")";
     }
 
 
     // Getters
     public int getId() {
-        return id;
+        return this.id;
     }
     public String getCorreo() {
-        return correo;
+        return this.correo;
     }
     public String getContrasena() {
-        return contrasena;
+        return this.contrasena;
     }
     public String getNombre() {
-        return nombre;
+        return this.nombre;
+    }
+    public String getDocumento() {
+        return this.documento;
     }
     public String getRol() {
-        return rol;
+        return this.rol;
     }
 
 
@@ -75,17 +81,20 @@ public class Usuario {
     public void setNombre(String name) {
         this.nombre = nombre;
     }
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
     public void setRol(String rol) {
         this.rol = rol;
     }
 
 
     // Métodos
-    public static Usuario crearUsuario(String correo, String contrasena, String nombre, String rol){
+    public static Usuario crearUsuario(String correo, String contrasena, String nombre, String documento, String rol){
         try{
             Database database = Database.getInstance();
             Dao<Usuario, String> usuarioDao = DaoManager.createDao(database.connection(), Usuario.class);
-            Usuario usuario = new Usuario(correo, contrasena, nombre, rol);
+            Usuario usuario = new Usuario(correo, contrasena, nombre, documento, rol);
             usuarioDao.create(usuario);
             return usuario;
         } catch (SQLException e) {
